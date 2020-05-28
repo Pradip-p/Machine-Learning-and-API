@@ -42,16 +42,18 @@ def training():#df
     y=df["Survived"]
     df.drop("Survived", axis="columns", inplace=True)
     x=df
-    print(x)
+   # print(x)
     dummyRow=pd.DataFrame(np.zeros(len(x.columns)).reshape(1,len(x.columns)), columns=x.columns)
     dummyRow.to_csv('dummyRow.csv', index=False)
     model=XGBClassifier(max_depth=2,min_child_weight=3, gamma=0,subsample=0.86, reg_alpha=0, n_estimators=125)
     x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2, random_state=10)
     model.fit(x,y)
+    print(model)
     print(model.score(x_test,y_test))
     pkl_filename="pickle_model.pkl"
     with open(pkl_filename,'wb') as file:
         pickle.dump(model,file)
+        print(pkl_filename)
     yp=model.predict(x_test)
     print("Survived", sum(yp!=0)) 
     print("not Survived ", sum(yp==0))
@@ -74,6 +76,8 @@ def pred(ob):
     pkl_filename='pickle_model.pkl'
     with open(pkl_filename,'rb') as file:
         model=pickle.load(file)
+        print(model)
+        print(df2)
     pred=model.predict(df2)
     return pred
 
