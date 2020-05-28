@@ -11,7 +11,6 @@ from django.contrib.auth.models import User
 class TitanicViewSet(viewsets.ModelViewSet):
     queryset=Titanic.objects.all().order_by('-id')
     serializer_class=TitanicSerializer
-    print("hello")
     def create(self, request, *args,**kwargs):
           super(viewsets.ModelViewSet, self).create(request,*args,**kwargs)
           # viewsets.ModelViewSet.create(request,*args,**kwargs)
